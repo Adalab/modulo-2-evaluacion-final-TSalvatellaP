@@ -2,7 +2,9 @@
 
 let series = [];
 
-const ulSearch = document.querySelector ('.js-search');
+const ulSearch = document.querySelector ('.js-ulSearch');
+const btnSearch = document.querySelector ('.js-btnSearch');
+const inputSearch = document.querySelector ('.js-search');
 
 
 //Funcion que pinta la lista de todas las series en la ul
@@ -35,4 +37,19 @@ function getDataApi() {
   getDataApi();
   
 
-  
+  //Funcion para escuchar el evento sobre el input del buscador con boton
+
+  function handleSearch (event){
+    event.preventDefault();
+    ulSearch.innerHTML = "";
+    const valueSearch = inputSearch.value;
+    console.log(valueSearch);
+    const filteredSeries = series.filter((item)=>item.title.toLowerCase().includes(valueSearch.toLowerCase()));
+    renderSeries(filteredSeries);
+          
+    }
+
+  btnSearch.addEventListener("click", handleSearch);
+
+
+ 
