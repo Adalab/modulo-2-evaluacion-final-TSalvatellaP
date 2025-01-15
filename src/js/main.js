@@ -9,7 +9,24 @@ const inputSearch = document.querySelector ('.js-search');
 const ulFavorites = document.querySelector ('.js-favorites');
 
 
+//funcion para pintar los favoritos
+function renderFavoritSeries (favorites){ 
+  ulFavorites.innerHTML ="";
+  for (const oneFav of favorites){
+  ulFavorites.innerHTML += `
+  <li id="${oneFav.mal_id}">
+            <div class="favorites">
+              <button>X</button>
+              <img src="${oneFav.images.jpg.image_url}" alt="imagen de la serie">
+              <h3>${oneFav.title}</h3>
+            </div>
+          </li>`;
+  }
+ 
 
+}
+
+//Funcion para seleccionar series en favoritos 
 const handleClickFav = (ev)=>{
   //obtener la informacion sobre el que se ha clickado
   //en mi array el id es un numero, hay que convertirlo
@@ -20,21 +37,14 @@ const handleClickFav = (ev)=>{
 //de mi array de favoritos buscame la serie que se ha clicado
 const indexFavoritSeries = favoritSeries.findIndex ((eachSerie)=> eachSerie.mal_id === liClicked)
   if (indexFavoritSeries === -1){
+    //si el index no está,mételo y dibujalo 
     favoritSeries.push (serieSelected);
     //console.log (favoritSeries);
-  }
-  //pintar las series favoritas
-    ulFavorites.innerHTML += `
-    <li id="${serieSelected.mal_id}">
-              <div class="favorites">
-                <button>X</button>
-                <img src="${serieSelected.images.jpg.image_url}" alt="imagen de la serie">
-                <h3>${serieSelected.title}</h3>
-              </div>
-            </li>`;
-  
+    renderFavoritSeries (favoritSeries);
+     }
+  localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
+    
   };
-
 
 //Funcion para escuchar evento y seleccionar los favoritos
 const listenerFavorit = ()=>{
@@ -71,11 +81,13 @@ function getDataApi() {
         series = info.data;
         //Se llama a la funcion que pinta los datos para que salgan una vez la api da los datos
         renderSeries (series);
-        console.log(series);
-                
+        
+       //console.log(series);
+             
       });
   }
   getDataApi();
+ 
   
 
   //Buscador, funcion para escuchar el evento y filtrar por titulo las series que busque la usuaria
@@ -93,4 +105,10 @@ function getDataApi() {
   btnSearch.addEventListener("click", handleSearch);
 
 
+ const favoritSeriesLS = localStorage.getItem('favoritesServer');
+ 
+ if (favoritSeriesLS){
+  favoritSeries = JSON.parse (favoritSeriesLS);
+  renderFavoritSeries (favoritSeries);
+ }
  
