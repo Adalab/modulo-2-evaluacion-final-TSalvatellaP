@@ -10,26 +10,25 @@
   <link rel="icon" href="./images/favicon.png" />
 </head>
 
-<body>
+<body class="page_main">
 
   <load src="./partials/header.html" />
   <main>
-    <h1>Buscador de series de anime</h1>
-    <input type="text" class="js-search" placeholder="Ejemplo: Naruto">
-    <button class="js-btnSearch">Buscar</button>
-    <button class="">Reset</button>
+       <input type="text" class="search js-search" placeholder="Ejemplo: Naruto">
+    <button class="search_btn js-btnSearch">Buscar</button>
+    <button class="search_btn js-btnReset">Reset</button>
         
     <div class="container">
-      <div>
+      <div class="result">
         <h2>Resultados</h2>
-        <ul class=" js-ulSearch">
+        <ul class=" result_ul js-ulSearch">
         </ul>
       </div>
-     
-        <h2>Favoritos</h2>
-        <ul class="js-favorites">
-          
+      <div class="favorit">
+        <h2>Series Favoritas</h2>
+        <ul class=" favorit_ul js-favorites">
         </ul>
+        <button class=" btnFavorite js-btnFavorite">Reset Favoritos</button>
       </div>
     </div> 
   </main>
