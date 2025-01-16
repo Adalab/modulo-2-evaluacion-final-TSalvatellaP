@@ -1,6 +1,6 @@
 ![Tania Salvatella - Exam Module 2]
 
-Este es el proyecto presentado para el examen del Módulo 1. He utlizado un template para poder trabajar con **node y vite**. Son unas **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
+Este es el proyecto presentado para el examen del Módulo 2. He utlizado un template para poder trabajar con **node y vite**. Son unas **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
 
 Para realizar este proyecto he usado un motor de plantillas HTML, el preprocesador SASS que automatiza tareas.
 
@@ -18,7 +18,7 @@ En el proyecto hay 3 tipos de ficheros y carpetas:
 ### Pasos a seguir cada vez que queremos arrancar un proyecto desde cero:
 
 1. **Para acceder a este proyecto hay que ir al repositorio en Github.**
-1. Clona este **modulo-1-evaluacion-final-TSalvatellaP**
+1. Clona este **modulo-2-evaluacion-final-TSalvatellaP**
 1. **Abre una terminal** en la carpeta raíz de tu repositorio.
 1. **Instala las dependencias** locales ejecutando en la terminal el comando:
 
