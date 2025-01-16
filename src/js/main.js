@@ -133,10 +133,10 @@ function renderSeries (list){
   
  }
   
-//Funcion para recoger los datos de la Api
-function getDataApi() {
+//Funcion para pedir datos de la Api la busqueda que se ha realizado
+function getDataApi(valueSearch) {
     fetch(
-      'https://api.jikan.moe/v4/anime?q='
+      `https://api.jikan.moe/v4/anime?q=${valueSearch}`
     )
       .then((resp) => resp.json())
       .then((info) => {
@@ -149,18 +149,20 @@ function getDataApi() {
              
       });
   }
-  //getDataApi();
+ 
  
     //Buscador, funcion para escuchar el evento y filtrar por titulo las series que busque la usuaria
   function handleSearch (event){
     event.preventDefault();
     ulSearch.innerHTML = "";
     const valueSearch = inputSearch.value;
-    //const filteredSeries = series.filter((item)=>item.title.toLowerCase().includes(valueSearch.toLowerCase()));
-    //llamo a la funcion que pinta los datos de la api con el parametro nuevo
-    renderSeries(filteredSeries);
-          
+     
+      //llamo a la funcion que pinta los datos de la api con el parametro nuevo
+    getDataApi(valueSearch);   
+    renderSeries(valueSearch);  
     }
 
   btnSearch.addEventListener("click", handleSearch);
 
+
+     
