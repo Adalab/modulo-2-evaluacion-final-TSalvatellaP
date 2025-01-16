@@ -1,30 +1,24 @@
-![Adalab](https://beta.adalab.es/resources/images/adalab-logo-155x61-bg-white.png)
+![Tania Salvatella - Exam Module 2]
 
-# Adalab web starter kit
+Este es el proyecto presentado para el examen del Módulo 1. He utlizado un template para poder trabajar con **node y vite**. Son unas **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
 
-Ahoy! Este es nuestro Starter Kit creado en **node y vite**. ¿Y qué es un Starter kit? Pues es una **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
+Para realizar este proyecto he usado un motor de plantillas HTML, el preprocesador SASS que automatiza tareas.
 
-Este Kit incluye un motor de plantillas HTML, el preprocesador SASS y un servidor local y muchas cosas más. El Kit nos ayuda a trabajar más cómodamente, nos automatiza tareas.
+En el proyecto hay 3 tipos de ficheros y carpetas:
 
-En el Kit hay 3 tipos de ficheros y carpetas:
-
-- Los ficheros que están sueltos en la raíz del repositorio, como vite.config.js, package.json... Son la configuración del proyecto y no necesitamos modificarlos (excepto este README.md, para describir tu proyecto).
+- Los ficheros que están sueltos en la raíz del repositorio, como vite.config.js, package.json... Son la configuración del proyecto y no necesitamos modificarlos. En el fichero readme describo el proyecto y el fichero `gitignore/` es para poner las carpetas y archivos que no quiero que se suban al repositorio.
 - La carpeta `src/`: son los ficheros de nuestra página web, como HTML, CSS, JS...
-- La carpeta `public/`, que tiene fichero estáticos como imágenes, fuentes, favicon, librerías de JavaScript antiguas (jQuery, ...)
-- Y la carpeta `docs/`, que es generada automáticamente cuando arrancamos el proyecto. El Kit lee los ficheros que hay dentro de `src/` y `public/`, los procesa y los genera dentro de `public/` y `docs/`.
+- La carpeta `public/`, que contiene las imágenes.
+- Y la carpeta `docs/`, que es generada automáticamente cuando arrancamos el proyecto. El template lee los ficheros que hay dentro de `src/` y `public/`, los procesa y los genera dentro de `public/` y `docs/`.
 
 ## Guía de inicio rápido
 
-> **NOTA:** Necesitas tener instalado [Node JS](https://nodejs.org/) con una versión superior a la 14 para trabajar con este Starter Kit:
+> **NOTA:** Necesitas tener instalado [Node JS](https://nodejs.org/) con una versión superior a la 14 para trabajar en este proyecto:
 
 ### Pasos a seguir cada vez que queremos arrancar un proyecto desde cero:
 
-1. **Crea tu propio repositorio.**
-1. Descarga este **Starter kit desde GitHub**.
-   - No recomendamos que clones este repo ya que no podrás añadir commits.
-1. **Copia todos los ficheros** de este Starter kit en la carpeta raíz de tu repositorio.
-   - Recuerda que debes copiar **también los ficheros ocultos** que comienzan por un punto.
-   - Si has decidido clonar este repo, no debes copiar la carpeta `.git`. Si lo haces estarás machacando tu propio repositorio.
+1. **Para acceder a este proyecto hay que ir al repositorio en Github.**
+1. Clona este **modulo-1-evaluacion-final-TSalvatellaP**
 1. **Abre una terminal** en la carpeta raíz de tu repositorio.
 1. **Instala las dependencias** locales ejecutando en la terminal el comando:
 
@@ -37,7 +31,7 @@ npm install
 Una vez hemos instalado las dependencias, vamos a arrancar el proyecto. **El proyecto hay que arrancarlo cada vez que te pongas a programar.** Para ello ejecuta el comando:
 
 ```bash
-npm run dev
+npm start
 ```
 
 Este comando:
@@ -48,78 +42,77 @@ Este comando:
    - Convierte los ficheros SASS en CSS.
    - Combina los diferentes ficheros de HTML y los agrupa en uno o varios ficheros HTML.
 
-Después de ejecutar `npm run dev` ya puedes empezar a editar todos los ficheros que están dentro de la carpeta `src/` y programar cómodamente.
+Después de ejecutar `npm start` ya puedes empezar a editar todos los ficheros que están dentro de la carpeta `src/` y programar cómodamente.
 
-### Pasos para publicar el proyecto en GitHub Pages:
+### Pasos para control de versiones en el repositorio en GitHub:
 
-Para generar tu página para producción ejecuta el comando:
-
-```bash
-npm run build
-```
-
-Y a continuación:
-
-1. Sube a tu repo la carpeta `docs/` que se te acaba de generar.
-1. Entra en la pestaña `settings` de tu repo.
-1. Y en el apartado de GitHub Pages activa la opción **master branch /docs folder**.
-1. Y ya estaría!!!
-
-Además, los comandos:
+Eecuta el comando:
 
 ```bash
-npm run push-docs
+git add -A
 ```
+```bash
+git commit -m "datos-modificacion"
+```
+
+```bash
+git push
+```
+
+Yo he trabajado sobre una rama devloper antes de finalizar todos los cambios en la rama Main.
+Para crear una rama donde poder trabajar diferentes versiones sin afectar a las otras ramas:
+Ejecuta el comeando:
+```bash
+git branch nombre-de-la-rama
+```
+Para pasar de una rama a otra
+```bash
+git checkout nombre-de-la-rama a la que quieres ir
+```
+Para comprobar en cuál de las ramas te encuentras
+```bash
+git branch
+```
+
 o
 
 ```bash
-npm run deploy
+git status
 ```
 
-son un atajo que nos genera la versión de producción y hace push de la carpeta `docs/` del tirón. Te recomendamos ver el fichero `package.json` para aprender cómo funciona.
-<!--
-## Flujo de archivos con Gulp
+Una vez finalizado el proyecto y todo el trabajo en dev (developer), y subidos todos los cambios(add,commit, push) he pasado todos los cambios a la rama main para subirla a github:
+```bash
+git checkout main **para movernos a la rama main**
+```
+```bash
+git merge dev **ponemos el nombre de la rama con la queremos hacer  marge, traer todos los cambios**
+```
 
-Estas tareas de Gulp producen el siguiente flujo de archivos:
+```bash
+git add -A
+```
+```bash
+git commit -m "mensaje-commit"
+```
+```bash
+git push
+```
+Ahora en el repositorio tendríamos actualizada la rama Main y la dev y se publica en Github.git
 
-![Gulp flow](./gulp-flow.png)
 
-## `gulpfile.js` y `config.json`
-
-Nuestro **gulpfile.js** usa el fichero `config.json` de configuración con las rutas de los archivos a generar / observar.
-
-De esta manera separarmos las acciones que están en `gulpfile.js` de la configuración de las acciones que están en `config.json`.
--->
 ## Estructura de carpetas
 
-La estructura de carpetas tiene esta pinta:
+La estructura de carpetas tiene esta proyecto:
 
 ```
 src
- ├─ api // los ficheros de esta carpeta se copian en public/api/
- |  └─ data.json
- ├─ images
- |  └─ logo.jpg
+ ├─ images 
  ├─ js // los ficheros de esta carpeta se concatenan en el fichero main.js y este se guarda en public/main.js
  |  ├─ main.js
  |  └─ events.js
  ├─ scss
- |  ├─ components
- |  ├─ core
- |  ├─ layout
- |  └─ pages
+ |  ├─ core // los ficheros de esta carpeta son los scss que se usan genéricos para todo el proyecto, afecta a todo el proyecto si se enlazan.
+ |  └─ layout // los fecharos scss creados por partespara diferenciar las diferentes secciones
  └─ html
-    └─ partials
+    └─ partials // los partials son secciones del index.html para trabajar por partes. Están llamados todos en el index principal
 ```
-
-> **NOTA:** Los partials de HTML y SASS del proyecto son orientativos. Te recomendamos usar los que quieras, y borrar los que no uses.
-<!--
-## Vídeotutoriales del Starter kit
-
-- [Qué es, trabajar con la versión de desarrollo y rutas relativas](https://www.youtube.com/watch?v=XwvhXvBijos)
-- [Migración de un proyecto, trabajar con la versión de producción y GitHub Pages](https://www.youtube.com/watch?v=qqGClcgt9Uc)
-- [Motor de plantillas](https://www.youtube.com/watch?v=4GwXOJ045Zg)
--->
-## Falta algo?
-
-Echas de menos que el kit haga algo en concreto? Pidelo sin problema a través de las issues o si te animas a mejorarlo mándanos un PR :)

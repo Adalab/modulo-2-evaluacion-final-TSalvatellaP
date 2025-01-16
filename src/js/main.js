@@ -9,6 +9,7 @@ const ulFavorites = document.querySelector ('.js-favorites');
 
 const btnResetFavorit = document.querySelector ('.js-btnFavorite');
 const btnReset = document.querySelector ('.js-btnReset');
+const btnX = document.querySelector ('.js-btnX');
 
 //BONUS
 //Valores que hay que resetear
@@ -20,7 +21,19 @@ function resetValues (){
 function resetFavoritValue (){
   ulFavorites.innerHTML ="";
   localStorage.removeItem('favoritesServer');
+  favoritSeries = [];
+ 
 }
+
+
+function handleClickX(){
+  const favSelected = favoritSeries.find((item) => item.mal_id === liClicked);
+console.log(favSelected);
+}
+
+
+//btnX.addEventListener('click', handleClickX);
+
 
 //funcion para escuchar el evento reset y ejecutar funciones de reseteo
 function handleClickReset(ev){
@@ -32,7 +45,6 @@ function handleClickReset(ev){
 btnReset.addEventListener('click', handleClickReset);
 
 //escuchar evento de boton reset favoritos
-//NO REFRESCA BIEN, CREO QUE TENGO MAL PUESTA LS
 function handleClickResetFavorit(ev){
   ev.preventDefault();
   resetFavoritValue ();
@@ -40,15 +52,14 @@ function handleClickResetFavorit(ev){
 
 btnResetFavorit.addEventListener('click', handleClickResetFavorit);
 
-
 //funcion para pintar los favoritos
 function renderFavoritSeries (favorites){ 
   ulFavorites.innerHTML ="";
   for (const oneFav of favorites){
   ulFavorites.innerHTML += `
-  <li id="${oneFav.mal_id}" class=" favorites" >
+  <li id="${oneFav.mal_id}" >
             <div class="favorit_li" >
-              <button class="btnX" >&#215</button>
+              <button class="btnX js-btnX" >&#215</button>
               <h3>${oneFav.title}</h3>
               <img class ="favorit_img" src="${oneFav.images.jpg.image_url}" alt="imagen de la serie">
              </div>
@@ -75,7 +86,7 @@ const indexFavoritSeries = favoritSeries.findIndex ((eachSerie)=> eachSerie.mal_
      }
   
   localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
-    
+  renderSeries (series);  
   };
 
 //Funcion para escuchar evento y seleccionar los favoritos
@@ -100,16 +111,16 @@ renderFavoritSeries (favoritSeries);
 
 //Funcion que pintar la lista de todas las series en la ul
 function renderSeries (list){
-  ulSearch.innerHTML = "";
+  //console.log(favoritSeries);
     for (const serie of list){
       // en mi array de favoritos voy a buscar si la serie ya está en favoritos
-    const findFav = favoritSeries.find((serieFav) => serieFav.id === serie.id);
-
+    const findFav = favoritSeries.find ((serieFav) => serieFav.mal_id === serie.mal_id);
+    console.log(findFav);
 // NO SE POR QUE NO ME FUNCIONA, NO ME COJE LA CLASE
-    let css = findFav ? 'favorites' : '' ;
+    let cssClass = findFav ? 'favorites' : '';
     
     ulSearch.innerHTML += `
-    <li id="${serie.mal_id}" class="${css} js-seriesLi result_li ">
+    <li id="${serie.mal_id}" class="js-seriesLi result_li ${cssClass} ">
       <img src="${serie.images.jpg.image_url}" 
       alt="imagen de la serie" 
       onerror="this.onerror=null; this.src='https://placehold.co/400x600';"/>
@@ -119,12 +130,13 @@ function renderSeries (list){
 
     }
   listenerFavorit();
+  
  }
   
 //Funcion para recoger los datos de la Api
 function getDataApi() {
     fetch(
-      'https://api.jikan.moe/v4/anime'
+      'https://api.jikan.moe/v4/anime?q='
     )
       .then((resp) => resp.json())
       .then((info) => {
@@ -137,14 +149,14 @@ function getDataApi() {
              
       });
   }
-  getDataApi();
+  //getDataApi();
  
     //Buscador, funcion para escuchar el evento y filtrar por titulo las series que busque la usuaria
   function handleSearch (event){
     event.preventDefault();
     ulSearch.innerHTML = "";
     const valueSearch = inputSearch.value;
-    const filteredSeries = series.filter((item)=>item.title.toLowerCase().includes(valueSearch.toLowerCase()));
+    //const filteredSeries = series.filter((item)=>item.title.toLowerCase().includes(valueSearch.toLowerCase()));
     //llamo a la funcion que pinta los datos de la api con el parametro nuevo
     renderSeries(filteredSeries);
           
