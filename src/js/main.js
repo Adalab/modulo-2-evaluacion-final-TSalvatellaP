@@ -7,14 +7,16 @@ const btnSearch = document.querySelector ('.js-btnSearch');
 const inputSearch = document.querySelector ('.js-search');
 const ulFavorites = document.querySelector ('.js-favorites');
 
+
 const btnResetFavorit = document.querySelector ('.js-btnFavorite');
 const btnReset = document.querySelector ('.js-btnReset');
-const btnX = document.querySelector ('.js-btnX');
+const btnX = document.querySelectorAll ('.js-btnX');
 
 //BONUS
 //Valores que hay que resetear
 function resetValues (){
   ulSearch.innerHTML = "";
+  inputSearch.value = "";
  
 }
 
@@ -25,14 +27,13 @@ function resetFavoritValue (){
  
 }
 
+/*Al darle al boton X se elimina el elemento de la lista favofitos.Tambien se tiene que eliminar de LS .
+   - Seleccionar todas las Xs
+   - Recorrer cada una de las X
+   -Saber cual es el id seleccionado y sacarlo del array (splice)
+   -Actualizar LS*/
+  
 
-function handleClickX(){
-  const favSelected = favoritSeries.find((item) => item.mal_id === liClicked);
-console.log(favSelected);
-}
-
-
-//btnX.addEventListener('click', handleClickX);
 
 
 //funcion para escuchar el evento reset y ejecutar funciones de reseteo
@@ -65,7 +66,7 @@ function renderFavoritSeries (favorites){
              </div>
           </li>`;
   }
-
+ 
 }
 
 //Funcion para seleccionar series en favoritos 
@@ -81,16 +82,15 @@ const indexFavoritSeries = favoritSeries.findIndex ((eachSerie)=> eachSerie.mal_
   if (indexFavoritSeries === -1){
     //si el index no está,mételo y dibujalo 
     favoritSeries.push (serieSelected);
-    //console.log (favoritSeries);
     renderFavoritSeries (favoritSeries);
-     }
+       }
   
   localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
   renderSeries (series);  
   };
 
 //Funcion para escuchar evento y seleccionar los favoritos
-const listenerFavorit = ()=>{
+const listenerSelected = ()=>{
   const allSeriesLi = document.querySelectorAll ('.js-seriesLi');
   //devuelve un array y hay que recorrerlo
   for (const li of allSeriesLi){
@@ -115,26 +115,25 @@ function renderSeries (list){
     for (const serie of list){
       // en mi array de favoritos voy a buscar si la serie ya está en favoritos
     const findFav = favoritSeries.find ((serieFav) => serieFav.mal_id === serie.mal_id);
-    console.log(findFav);
+    console.log(serie.images);
 // NO SE POR QUE NO ME FUNCIONA, NO ME COJE LA CLASE
+const errorImg = serie.images.jpg.image_url ? serie.images.jpg.image_url : 'https://placehold.co/400x600';
     let cssClass = findFav ? 'favorites' : '';
     
     ulSearch.innerHTML += `
     <li id="${serie.mal_id}" class="js-seriesLi result_li ${cssClass} ">
-      <img src="${serie.images.jpg.image_url}" 
-      alt="imagen de la serie" 
-      onerror="this.onerror=null; this.src='https://placehold.co/400x600';"/>
+      <img src="${errorImg}" alt="imagen de la serie" />
       <h3>${serie.title}</h3>
      
     </li>`;
 
     }
-  listenerFavorit();
+  listenerSelected();
   
  }
   
 //Funcion para pedir datos de la Api la busqueda que se ha realizado
-function getDataApi(valueSearch) {
+function getDataSearch(valueSearch) {
     fetch(
       `https://api.jikan.moe/v4/anime?q=${valueSearch}`
     )
@@ -143,10 +142,8 @@ function getDataApi(valueSearch) {
         series = info.data;
         //Se llama a la funcion que pinta los datos para que salgan una vez la api da los datos
         renderSeries (series);
-        loadFavorites();
         
-       //console.log(series);
-             
+      
       });
   }
  
@@ -158,11 +155,11 @@ function getDataApi(valueSearch) {
     const valueSearch = inputSearch.value;
      
       //llamo a la funcion que pinta los datos de la api con el parametro nuevo
-    getDataApi(valueSearch);   
-    renderSeries(valueSearch);  
+    getDataSearch(valueSearch);   
+    
     }
 
   btnSearch.addEventListener("click", handleSearch);
-
+  loadFavorites();
 
      
