@@ -10,7 +10,7 @@ const ulFavorites = document.querySelector ('.js-favorites');
 
 const btnResetFavorit = document.querySelector ('.js-btnFavorite');
 const btnReset = document.querySelector ('.js-btnReset');
-const btnX = document.querySelectorAll ('.js-btnX');
+
 
 //BONUS
 //Valores que hay que resetear
@@ -31,9 +31,28 @@ function resetFavoritValue (){
    - Seleccionar todas las Xs
    - Recorrer cada una de las X
    -Saber cual es el id seleccionado y sacarlo del array (splice)
-   -Actualizar LS*/
-  
+   -Actualizar LS 
+   NO FUNCIONA!!!!!
+    const handleClickX = (ev)=>{
+    const btnXClicked = parseInt (ev.currentTarget.id);
+    const favSelected = favoritSeries.find((item) => item.mal_id === liClicked)
+    if (favSelected){
+      favoritSeries.splice (favSelected);
+      renderFavoritSeries (favoritSeries);
+     
+         }
 
+   }
+
+const deletOneFavorit =()=>{
+  const btnX = document.querySelectorAll ('.js-btnX');
+  for (const oneBtnX of allBtnX){
+    oneBtnX.addEventListener("click", handleClickX);
+    console.log("he hecho click en X");
+  }
+
+}
+//*/
 
 
 //funcion para escuchar el evento reset y ejecutar funciones de reseteo
@@ -111,16 +130,14 @@ renderFavoritSeries (favoritSeries);
 
 //Funcion que pintar la lista de todas las series en la ul
 function renderSeries (list){
-  //console.log(favoritSeries);
-    for (const serie of list){
+     for (const serie of list){
       // en mi array de favoritos voy a buscar si la serie ya está en favoritos
     const findFav = favoritSeries.find ((serieFav) => serieFav.mal_id === serie.mal_id);
-    console.log(serie.images);
+    
 // NO SE POR QUE NO ME FUNCIONA, NO ME COJE LA CLASE
 const errorImg = serie.images.jpg.image_url ? serie.images.jpg.image_url : 'https://placehold.co/400x600';
     let cssClass = findFav ? 'favorites' : '';
-    
-    ulSearch.innerHTML += `
+     ulSearch.innerHTML += `
     <li id="${serie.mal_id}" class="js-seriesLi result_li ${cssClass} ">
       <img src="${errorImg}" alt="imagen de la serie" />
       <h3>${serie.title}</h3>
