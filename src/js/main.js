@@ -6,10 +6,24 @@ const ulSearch = document.querySelector ('.js-ulSearch');
 const btnSearch = document.querySelector ('.js-btnSearch');
 const inputSearch = document.querySelector ('.js-search');
 const ulFavorites = document.querySelector ('.js-favorites');
+const btnLog =document.querySelector ('.js-btnLog');
 
 
 const btnResetFavorit = document.querySelector ('.js-btnFavorite');
 const btnReset = document.querySelector ('.js-btnReset');
+
+function handleclickLog (){
+  for (const oneFav of favoritSeries){
+    console.log (oneFav.title);
+
+  }
+ 
+
+} 
+
+btnLog.addEventListener('click', handleclickLog);
+
+
 
 
 //BONUS
@@ -141,6 +155,8 @@ const errorImg = serie.images.jpg.image_url ? serie.images.jpg.image_url : 'http
     <li id="${serie.mal_id}" class="js-seriesLi result_li ${cssClass} ">
       <img src="${errorImg}" alt="imagen de la serie" />
       <h3>${serie.title}</h3>
+      <h3>${serie.type}</h3>
+      
      
     </li>`;
 
