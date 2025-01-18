@@ -4,6 +4,69 @@ Este es el proyecto presentado para el examen del Módulo 1. He utlizado un temp
 
 Para realizar este proyecto he usado un motor de plantillas HTML, el preprocesador SASS que automatiza tareas.
 
+# Buscador de Series de Anime
+
+Este proyecto es un buscador de series de anime que permite a los usuarios buscar información sobre animes utilizando la API de Jikan y guardar sus series favoritas.
+
+Aquí hay una captura de pantalla de la interfaz:
+
+![Captura de pantalla de la interfaz](public/images/ejemplo1.PNG)
+
+Y aquí un ejemplo de uso:
+
+![Ejemplo de uso](public/images/ejemplo2.PNG)
+
+## Características
+
+*   **Búsqueda de anime:** Los usuarios pueden buscar animes por título utilizando un campo de texto.
+*   **Visualización de resultados:** Los resultados de la búsqueda se muestran en una lista, incluyendo la imagen y el título del anime.
+*   **Gestión de favoritos:** Los usuarios pueden añadir y eliminar animes de su lista de favoritos.
+*   **Persistencia de datos:** Las series favoritas se guardan en el almacenamiento local del navegador (`localStorage`), lo que permite que se conserven entre sesiones.
+*   **Interfaz dinámica:** La interfaz se actualiza dinámicamente al realizar búsquedas y al gestionar los favoritos.
+
+## Tecnologías utilizadas
+
+*   HTML
+*   CSS
+*   JavaScript
+*   API de Jikan (https://jikan.moe/)
+
+## Cómo utilizar
+
+1.  Abre el archivo `index.html` en tu navegador.
+2.  Introduce un término de búsqueda en el campo de texto.
+3.  Haz clic en el botón "Buscar".
+4.  Los resultados de la búsqueda se mostrarán en la columna "Resultados".
+5.  Haz clic en una serie en la columna "Resultados" para añadirla a "Series Favoritas" (aparecerá un borde azul alrededor de la serie en "Resultados").
+6.  Para eliminar una serie de "Series Favoritas", haz clic en el botón "X" que aparece junto a la serie en la columna "Series Favoritas".
+
+## Estructura del código
+
+*   `index.html`: Contiene la estructura HTML de la página.
+*   `styles.css`: Contiene los estilos CSS.
+*   `script.js`: Contiene la lógica JavaScript.
+
+## Funcionalidades principales en `script.js`
+
+*   **`renderSeries(list)`:** Renderiza la lista de series en la columna "Resultados".
+*   **`renderFavoritSeries(favorites)`:** Renderiza la lista de series favoritas en la columna "Series Favoritas".
+*   **`handleClickFav(ev)`:** Maneja el evento de clic en una serie para añadirla o eliminarla de favoritos.
+*   **`handleClickX(ev)`:** Maneja el evento de clic en el botón "X" para eliminar una serie de favoritos.
+*   **`listenerSelected()`:** Añade event listeners a las series en la columna "Resultados".
+*   **`loadFavorites()`:** Carga las series favoritas desde el almacenamiento local al cargar la página.
+*   **`getDataSearch(valueSearch)`:** Realiza la petición a la API de Jikan para buscar animes.
+*   **`handleSearch(event)`:** Maneja el evento de clic en el botón de búsqueda.
+*   **`loadInitialSeries()`:** Carga una lista inicial de series al cargar la página.
+
+## Mejoras futuras
+
+*   Implementar paginación para mostrar grandes cantidades de resultados.
+*   Añadir manejo de errores más robusto.
+*   Mejorar la interfaz de usuario.
+*   Añadir más detalles de cada anime (sinopsis, género, etc.).
+*   Implementar un sistema de búsqueda más avanzado (por género, año, etc.).
+
+
 En el proyecto hay 3 tipos de ficheros y carpetas:
 
 - Los ficheros que están sueltos en la raíz del repositorio, como vite.config.js, package.json... Son la configuración del proyecto y no necesitamos modificarlos. En el fichero readme describo el proyecto y el fichero `gitignore/` es para poner las carpetas y archivos que no quiero que se suban al repositorio.

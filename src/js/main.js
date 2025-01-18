@@ -26,6 +26,9 @@ const handleClickX = (ev)=>{
   const favoritClicked = favoritSeries.findIndex((item) => item.mal_id === btXClicked);
   const removeFavClicked = favoritSeries.splice (favoritClicked, 1);
   renderFavoritSeries (favoritSeries);
+  renderSeries (series); 
+  localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
+  
    
 }
 const allBtnX = document.querySelectorAll ('.js-btnX');
