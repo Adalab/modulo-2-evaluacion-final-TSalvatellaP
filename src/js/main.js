@@ -22,15 +22,15 @@ const btnReset = document.querySelector ('.js-btnReset');
    */
 
 const handleClickX = (ev)=>{
-  const btXClicked = parseInt (ev.currentTarget.mal_id);
-  const favoritClicked = favoritSeries.findIndex((item) => item.mal_id === btXClicked);
-  const removeFavClicked = favoritSeries.splice (favoritClicked, 1);
+  const btXClicked = parseInt(ev.target.parentElement.id);
+  const favoritClicked = favoritSeries.find((item) => item.mal_id === btXClicked);
+  favoritSeries.splice (favoritClicked, 1);
+  localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries)); 
   renderFavoritSeries (favoritSeries);
   renderSeries (series); 
-  localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
-  
-   
+ 
 }
+
 const allBtnX = document.querySelectorAll ('.js-btnX');
 for (const oneBtnX of allBtnX){
 oneBtnX.addEventListener('click', handleClickX);
@@ -101,7 +101,6 @@ const indexFavoritSeries = favoritSeries.findIndex ((eachSerie)=> eachSerie.mal_
       }
   
   localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
-  renderSeries (series); 
   renderFavoritSeries (favoritSeries);
   
   };

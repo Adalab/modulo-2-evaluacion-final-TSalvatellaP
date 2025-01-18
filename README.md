@@ -1,6 +1,6 @@
 ![Tania Salvatella - Exam Module 2]
 
-Este es el proyecto presentado para el examen del Módulo 1. He utlizado un template para poder trabajar con **node y vite**. Son unas **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
+Este es el proyecto presentado para el examen del Módulo 2. He utlizado un template para poder trabajar con **node y vite**. Son unas **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
 
 Para realizar este proyecto he usado un motor de plantillas HTML, el preprocesador SASS que automatiza tareas.
 
