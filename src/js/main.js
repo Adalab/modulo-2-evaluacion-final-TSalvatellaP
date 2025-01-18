@@ -13,64 +13,47 @@ const btnReset = document.querySelector ('.js-btnReset');
 
 
 //BONUS
-//Valores que hay que resetear
-function resetValues (){
-  ulSearch.innerHTML = "";
-  inputSearch.value = "";
- 
-}
-
-function resetFavoritValue (){
-  ulFavorites.innerHTML ="";
-  localStorage.removeItem('favoritesServer');
-  favoritSeries = [];
- 
-}
 
 /*Al darle al boton X se elimina el elemento de la lista favofitos.Tambien se tiene que eliminar de LS .
    - Seleccionar todas las Xs
    - Recorrer cada una de las X
    -Saber cual es el id seleccionado y sacarlo del array (splice)
    -Actualizar LS 
-   NO FUNCIONA!!!!!
-    const handleClickX = (ev)=>{
-    const btnXClicked = parseInt (ev.currentTarget.id);
-    const favSelected = favoritSeries.find((item) => item.mal_id === liClicked)
-    if (favSelected){
-      favoritSeries.splice (favSelected);
-      renderFavoritSeries (favoritSeries);
-     
-         }
+   */
 
-   }
-
-const deletOneFavorit =()=>{
-  const btnX = document.querySelectorAll ('.js-btnX');
-  for (const oneBtnX of allBtnX){
-    oneBtnX.addEventListener("click", handleClickX);
-    console.log("he hecho click en X");
-  }
-
+const handleClickX = (ev)=>{
+  const btXClicked = parseInt (ev.currentTarget.mal_id);
+  const favoritClicked = favoritSeries.findIndex((item) => item.mal_id === btXClicked);
+  const removeFavClicked = favoritSeries.splice (favoritClicked, 1);
+  renderFavoritSeries (favoritSeries);
+   
 }
-//*/
+const allBtnX = document.querySelectorAll ('.js-btnX');
+for (const oneBtnX of allBtnX){
+oneBtnX.addEventListener('click', handleClickX);
+  
+}
 
+//Valores que hay que resetear y botones de reseteo
 
-//funcion para escuchar el evento reset y ejecutar funciones de reseteo
-function handleClickReset(ev){
+btnReset.addEventListener('click', (ev)=>{
   ev.preventDefault();
-  resetValues ();
-  resetFavoritValue ();
-}
+  ulSearch.innerHTML = "";
+  inputSearch.value = "";
+  ulFavorites.innerHTML ="";
+  localStorage.removeItem('favoritesServer');
+  favoritSeries = [];
+  loadInitialSeries()
 
-btnReset.addEventListener('click', handleClickReset);
+});
 
-//escuchar evento de boton reset favoritos
-function handleClickResetFavorit(ev){
+btnResetFavorit.addEventListener('click', (ev)=>{
   ev.preventDefault();
-  resetFavoritValue ();
-}
-
-btnResetFavorit.addEventListener('click', handleClickResetFavorit);
+  ulFavorites.innerHTML ="";
+  localStorage.removeItem('favoritesServer');
+  favoritSeries = [];
+ 
+});
 
 //funcion para pintar los favoritos
 function renderFavoritSeries (favorites){ 
@@ -84,7 +67,13 @@ function renderFavoritSeries (favorites){
               <img class ="favorit_img" src="${oneFav.images.jpg.image_url}" alt="imagen de la serie">
              </div>
           </li>`;
+  
   }
+  const allBtnX = document.querySelectorAll ('.js-btnX');
+for (const oneBtnX of allBtnX){
+  oneBtnX.addEventListener('click', handleClickX);
+  
+}
  
 }
 
@@ -101,11 +90,17 @@ const indexFavoritSeries = favoritSeries.findIndex ((eachSerie)=> eachSerie.mal_
   if (indexFavoritSeries === -1){
     //si el index no está,mételo y dibujalo 
     favoritSeries.push (serieSelected);
-    renderFavoritSeries (favoritSeries);
-       }
+    ev.currentTarget.classList.add("favorites")
+   
+       } else {
+        favoritSeries.splice(indexFavoritSeries, 1);
+        ev.currentTarget.classList.remove("favorites") //Quitar clase favorites
+      }
   
   localStorage.setItem('favoritesServer', JSON.stringify(favoritSeries));  
-  renderSeries (series);  
+  renderSeries (series); 
+  renderFavoritSeries (favoritSeries);
+  
   };
 
 //Funcion para escuchar evento y seleccionar los favoritos
@@ -115,7 +110,7 @@ const listenerSelected = ()=>{
   for (const li of allSeriesLi){
     li.addEventListener("click", handleClickFav);
   }
-
+ 
 }
 
 // Cargar los datos de favoritos almacenado en el LS
@@ -130,18 +125,15 @@ renderFavoritSeries (favoritSeries);
 
 //Funcion que pintar la lista de todas las series en la ul
 function renderSeries (list){
-     for (const serie of list){
+    for (const serie of list){
       // en mi array de favoritos voy a buscar si la serie ya está en favoritos
     const findFav = favoritSeries.find ((serieFav) => serieFav.mal_id === serie.mal_id);
-    
-// NO SE POR QUE NO ME FUNCIONA, NO ME COJE LA CLASE
-const errorImg = serie.images.jpg.image_url ? serie.images.jpg.image_url : 'https://placehold.co/400x600';
+    const errorImg = serie.images.jpg.image_url ? serie.images.jpg.image_url : 'https://placehold.co/400x600';
     let cssClass = findFav ? 'favorites' : '';
      ulSearch.innerHTML += `
     <li id="${serie.mal_id}" class="js-seriesLi result_li ${cssClass} ">
       <img src="${errorImg}" alt="imagen de la serie" />
       <h3>${serie.title}</h3>
-     
     </li>`;
 
     }
@@ -163,13 +155,17 @@ function getDataSearch(valueSearch) {
       
       });
   }
- 
- 
-    //Buscador, funcion para escuchar el evento y filtrar por titulo las series que busque la usuaria
+     //Buscador, funcion para escuchar el evento y filtrar por titulo las series que busque la usuaria
   function handleSearch (event){
     event.preventDefault();
     ulSearch.innerHTML = "";
-    const valueSearch = inputSearch.value;
+    const valueSearch = inputSearch.value.trim();
+    if (valueSearch === "") {
+      // Si el campo de búsqueda está vacío, recarga la lista inicial
+      ulSearch.innerHTML = ""; // Limpia los resultados de búsqueda anteriores
+      loadInitialSeries();
+      return;
+    }
      
       //llamo a la funcion que pinta los datos de la api con el parametro nuevo
     getDataSearch(valueSearch);   
@@ -178,5 +174,27 @@ function getDataSearch(valueSearch) {
 
   btnSearch.addEventListener("click", handleSearch);
   loadFavorites();
+
+
+
+
+// Función para obtener la lista inicial de series 
+function loadInitialSeries() {
+  fetch('https://api.jikan.moe/v4/anime') 
+      .then(resp => resp.json())
+      .then(info => {
+          series = info.data;
+          renderSeries(series);
+      });
+}
+
+// Evento que se ejecuta cuando el DOM está completamente cargado
+document.addEventListener('DOMContentLoaded', () => {
+  loadFavorites(); // Carga los favoritos del localStorage
+  loadInitialSeries(); // Carga la lista inicial de series
+});
+
+
+
 
      
